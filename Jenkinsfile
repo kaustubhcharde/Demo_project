@@ -1,0 +1,25 @@
+pipeline {
+    agent { label 'test-node' }
+
+    tools {
+        maven "M2"
+    }
+
+    stages {
+        stage('git checkout'){
+            git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+        }
+        stage('Build') {
+            steps {
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+
+            post {
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
+            }
+        }
+    }
+}
