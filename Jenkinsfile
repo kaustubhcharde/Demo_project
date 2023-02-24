@@ -1,10 +1,8 @@
 pipeline {
-    agent { label 'node-test' }
-
+    agent { label 'test-node' }
     tools {
         maven "M3"
     }
-
     stages {
         stage('git checkout'){
             steps{
