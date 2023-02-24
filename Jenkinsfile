@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'test-node' }
+    agent { label 'node-test' }
 
     tools {
         maven "M3"
@@ -15,12 +15,13 @@ pipeline {
             steps {
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
             }
-        } 
+
             post {
                 success {
                     junit '**/target/surefire-reports/TEST-*.xml'
                     archiveArtifacts 'target/*.jar'
                 }
             }
+        }
     }
 }
