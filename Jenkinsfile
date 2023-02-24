@@ -2,12 +2,14 @@ pipeline {
     agent { label 'test-node' }
 
     tools {
-        maven "M2"
+        maven "M3"
     }
 
     stages {
         stage('git checkout'){
-            git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+            steps{
+                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+            }     
         }
         stage('Build') {
             steps {
